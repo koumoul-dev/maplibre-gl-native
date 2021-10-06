@@ -25,18 +25,24 @@ function dataForRequest(req) {
     } else if (req.url.indexOf('sprite') > -1 && req.url.endsWith('png')) {
         return sprite_png;
     } else if (req.url.indexOf('fonts') > -1 && req.url.endsWith('pbf')) {
-        return glyph;
-    } else if (req.url.endsWith('mapbox.satellite')) {
-        return source_raster;
-    } else if (req.url.indexOf('satellite') > -1 && (req.url.endsWith('png') || req.url.endsWith('webp'))) {
-        return tile_raster;
-    } else if (req.url.endsWith('mapbox.mapbox-streets-v7')) {
-        return source_vector;
-    } else if (req.url.indexOf('streets') > -1 && req.url.endsWith('pbf')) {
-        return tile_vector;
-    } else {
-        return null;
-    }
+        return glyph;    } else if (req.url.endsWith('satellite')) {
+            return source_raster;
+        } else if (req.url.indexOf('satellite') > -1 && (req.url.endsWith('png') || req.url.endsWith('webp') || req.url.endsWith('jpg'))) {
+            return tile_raster;
+        } else if (req.url.endsWith('mapbox.mapbox-streets-v7')) {
+            return source_vector;
+        } else if (req.url.indexOf('streets') > -1 && req.url.endsWith('pbf')) {
+            return tile_vector;
+        } else if (req.url.indexOf('maptiler://tiles/tiles') > -1 && req.url.endsWith('pbf')) {
+            return tile_vector;
+        }else if (req.url === "https://api.maptiler.com/tiles/v3/tiles.json?key=uwvyvzaF2P7UWbyOEvjU"){
+            return source_vector
+        }else if (req.url === "maptiler://sources/v3"){
+            return source_vector
+        } else {
+            console.log(req.url)
+            return null;
+        }
 }
 
 module.exports = {
