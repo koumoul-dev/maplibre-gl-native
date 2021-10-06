@@ -4,7 +4,8 @@ var mockfs = require('../mockfs');
 var mbgl = require('../../index');
 var test = require('tape');
 
-[ 'sprite_png', 'sprite_json', 'source_vector', 'glyph' ].forEach(function (resource) {
+// 'glyph' are never requested
+[ 'sprite_png', 'sprite_json', 'source_vector'/*, 'glyph'*/ ].forEach(function (resource) {
     test(`render reports an error when the request function responds with an error (${resource})`, function(t) {
         var map = new mbgl.Map({
             request: function(req, callback) {
@@ -144,20 +145,20 @@ test(`render does not report an error from rendering a previous style`, function
     var map = new mbgl.Map({
         request: function(req, callback) {
             var data = mockfs.dataForRequest(req);
-            if (mockfs.source_vector === data) {
+            if (mockfs.source_raster === data) {
                 callback(new Error('message'));
             } else {
                 callback(null, { data: data });
             }
         }
     });
-    map.load(mockfs.style_vector);
+    map.load(mockfs.style_raster);
     map.render({ zoom: 16 }, function(err, pixels) {
         t.assert(err);
         t.assert(/message/.test(err.message));
         t.assert(!pixels);
 
-        map.load(mockfs.style_raster);
+        map.load(mockfs.style_vector);
         map.render({ zoom: 16 }, function(err, pixels) {
             t.error(err);
             t.assert(pixels);
