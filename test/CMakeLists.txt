@@ -219,6 +219,7 @@ target_link_libraries(
         Mapbox::Base::pixelmatch-cpp
         mbgl-compiler-options
         mbgl-vendor-cpp-httplib
+        mbgl-platform-loop
     PUBLIC mbgl-core
 )
 
