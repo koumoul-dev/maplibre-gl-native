@@ -1471,4 +1471,12 @@ bool NodeFileSource::canRequest(const mbgl::Resource&) const {
     return true;
 }
 
+void NodeFileSource::setResourceOptions(mbgl::ResourceOptions options) {
+    resourceOptions = options;
+}
+
+mbgl::ResourceOptions NodeFileSource::getResourceOptions() {
+    return resourceOptions.clone();
+}
+
 } // namespace node_mbgl

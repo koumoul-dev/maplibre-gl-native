@@ -17,9 +17,7 @@ add_node_module(
         51
         59
         67
-        72
         79
-        83
 )
 
 add_library(mbgl-node-loop STATIC)
