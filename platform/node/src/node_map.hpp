@@ -64,6 +64,7 @@ public:
     static void SetYSkew(const Nan::FunctionCallbackInfo<v8::Value>&);
     static void DumpDebugLogs(const Nan::FunctionCallbackInfo<v8::Value>&);
     static void QueryRenderedFeatures(const Nan::FunctionCallbackInfo<v8::Value>&);
+    static void ReduceMemoryUse(const Nan::FunctionCallbackInfo<v8::Value>&);
 
     static void SetFeatureState(const Nan::FunctionCallbackInfo<v8::Value>&);
     static void GetFeatureState(const Nan::FunctionCallbackInfo<v8::Value>&);

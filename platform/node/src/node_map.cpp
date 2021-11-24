@@ -118,6 +118,7 @@ ParseError)JS").ToLocalChecked()).ToLocalChecked();
 
     Nan::SetPrototypeMethod(tpl, "dumpDebugLogs", DumpDebugLogs);
     Nan::SetPrototypeMethod(tpl, "queryRenderedFeatures", QueryRenderedFeatures);
+    Nan::SetPrototypeMethod(tpl, "reduceMemoryUse", ReduceMemoryUse);
 
     v8::Local<v8::Context> context = target->CreationContext();
     constructor.Reset(tpl->GetFunction(context).ToLocalChecked());
@@ -1391,6 +1392,15 @@ void NodeMap::QueryRenderedFeatures(const Nan::FunctionCallbackInfo<v8::Value>& 
     } catch (const std::exception &ex) {
         return Nan::ThrowError(ex.what());
     }
+}
+
+void NodeMap::ReduceMemoryUse(const Nan::FunctionCallbackInfo<v8::Value>& info) {
+    auto nodeMap = Nan::ObjectWrap::Unwrap<NodeMap>(info.Holder());
+    if (!nodeMap->map) return Nan::ThrowError(releasedMessage());
+
+    nodeMap->frontend->getRenderer()->reduceMemoryUse();
+
+    info.GetReturnValue().SetUndefined();
 }
 
 NodeMap::NodeMap(v8::Local<v8::Object> options)
